@@ -1,0 +1,101 @@
+{%extends 'base.html'%}
+
+
+{%block title %} Task List {% endblock%}
+
+{% block content %}
+
+<body>
+<h1> Tasks for Completion</h1>
+
+
+{% if messages %}
+  {% for message in messages %}
+
+    <div class="alert alert-success alert-dismissable" role="alert">
+      <button class="close" data-dismiss="alert">
+        <small><sup>x</sup></small>
+      </button>
+    {{ message }}
+  </div>
+  {% endfor %}
+
+{%endif %}
+</br>
+
+
+
+<form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
+  
+
+  <input class="form-control mr-sm-2" type="text" id="datepicker" placeholder="Date"  name="taskdate">
+  <input class="form-control mr-sm-2" type="time" aria-label="Add" name="tasktime">
+  <input class="form-control mr-sm-2" type="add" placeholder="Description" aria-label="Add" name="taskdesc">
+  <input class="form-control mr-sm-2" type="add" placeholder="Location" aria-label="Add" name="location">
+  <input class="form-control mr-sm-2" type="add" placeholder="Assigned To" aria-label="Add" name="assingees">
+  <input class="form-control mr-sm-2" type="add" placeholder="Comments" aria-label="Add" name="comments">
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add Task</button>
+</form>
+
+</br>
+  {% if all_tasks %}
+  <table class="table table-bordered">
+
+    <thead class="thead-dark">
+      <tr>
+
+        
+        <th scope="col">Date</th>
+        <th scope="col">Time</th>
+        <th scope="col">Task</th>
+        <th scope="col">Location</th>
+        <th scope="col">Assigned To</th>
+        <th scope="col">Status</th>
+        <th scope="col">Comments</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      {% for tasks in all_tasks %}
+        {% if tasks.completed %}
+          <tr class="table table-secondary table-borderless">
+           
+            <td> {{tasks.taskdate|date:"d M Y"}} </td>
+            <td> {{tasks.tasktime|time:"h i a"}} </td>
+            <td class="strikethru"><a href="{% url 'edittask' tasks.id %}"> {{tasks.taskdesc}}</a> </td>
+            <td> {{tasks.location}} </td>
+            <td> {{tasks.assingees.staffname}} </td>
+            <td> Done<a href="{% url 'markincomplete' tasks.id %}" style="float: right">Undo?</a></td>
+            <td> {{tasks.comments}} </td>
+            <td><center> <a href="{% url 'delete' tasks.id %}">X</a></center> </td>
+          </tr>
+      
+        {% else %}
+            <tr class="table table-borderless table-light" border-color>
+              
+              <td> {{tasks.taskdate|date:"d M Y"}} </td>
+              <td> {{tasks.tasktime|time:"h i a"}} </td>
+              <td> <a href="{% url 'edittask' tasks.id %}">{{tasks.taskdesc}}</a> </td>
+              <td> {{tasks.location}} </td>
+              <td> {{tasks.assingees.staffname}} </td>
+              <td> To Do <a href="{% url 'markcomplete' tasks.id %}"style="float: right">Done?</a> </td>
+              <td> {{tasks.comments}} </td>
+              <td><center> <a href="{% url 'delete' tasks.id %}">X</a></center> </td>
+            </tr>
+        {% endif %}
+
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+
+</br>
+
+</body>
+    
+
+
+{% endblock %}
+

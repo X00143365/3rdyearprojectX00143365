@@ -1,0 +1,88 @@
+{%extends 'base.html'%}
+
+{% block content %}
+
+
+
+<title>Dashboard</title>
+<p> Add summary tasks for today here .. need divs & containers </p>
+
+</br>
+{% csrf_token %}
+
+
+
+{% if api %}
+
+
+<p> Forecast in Saggart provided by <img src="../static/images/AccuLogo_Sml.jpg" alt="Accuweather" > </p>
+
+
+
+{% if api.Headline.Text %}
+    <p>{{ api.Headline.Text }} </p>
+{% elif api.Code == "ServiceUnavailable" %}
+    <p><font color="red"> Accuweather Service is Unvailable: </p>
+      {{ api.Message }}</font> </p>
+{% elif api == "Weather API Error" %}
+     <p><font color="red">* Weather Forecast from Accuweather is currently unavailable *</font></p>
+{% else %}
+    <p><font color="red">* Weather Forecast from Accuweather is currently unavailable *</font></p>
+{% endif %}
+
+
+</br>
+
+
+
+
+<table class="table table-sm table-light ">
+  <thead>
+      <tr>
+      <th scope="col" colspan="1"></th>
+      <th scope="col" colspan="1">Todays Forecast</th>
+      <th scope="col" colspan="1">Tonights Forecast</th>
+  </thead>
+  <tbody>
+  <tr style="text-align:center">
+      <th scope="row"></th>
+      <td> {{ api.DailyForecasts.0.Day.LongPhrase }} </td>
+      <td> {{ api.DailyForecasts.0.Night.LongPhrase }} </td>    
+    </tr>
+  
+    <tr style="text-align:center">
+      <th scope="row">Temperature</th>
+      <td> {{ api.DailyForecasts.0.Temperature.Maximum.Value }} Celcius</td>
+      <td> {{ api.DailyForecasts.0.Temperature.Minimum.Value }} Celcius</td>    
+    </tr>
+    <tr style="text-align:center">
+      <th scope="row">Real Feel</th>
+      <td> {{ api.DailyForecasts.0.RealFeelTemperature.Maximum.Value }} Celcius</td>
+      <td> {{ api.DailyForecasts.0.RealFeelTemperature.Minimum.Value }} Celcius</td>    
+    </tr>
+    <tr style="text-align:center">
+      <th scope="row">Daylight</th>
+      <td> {{ api.DailyForecasts.0.Sun.Rise }} Sunrise </td>
+      <td> {{ api.DailyForecasts.0.Sun.Set }} Sunset</td>    
+    </tr>
+       <tr style="text-align:center">
+      <th scope="row">Rain Probability</th>
+      <td> {{ api.DailyForecasts.0.Day.RainProbability }} % </td>
+      <td> {{ api.DailyForecasts.0.Night.RainProbability }} % </td>    
+    </tr>
+        <tr style="text-align:center">
+      <th scope="row">Ice Probability</th>
+      <td> {{ api.DailyForecasts.0.Day.IceProbability }} % </td>
+      <td> {{ api.DailyForecasts.0.Night.IceProbability }} % </td>    
+    </tr>
+        <tr style="text-align:center">
+      <th scope="row">Snow Probability</th>
+      <td> {{ api.DailyForecasts.0.Day.SnowProbability }} % </td>
+      <td> {{ api.DailyForecasts.0.Night.SnowProbability }} % </td>    
+    </tr>
+  </tbody>
+</table>
+
+{% endif %}
+
+{% endblock %}

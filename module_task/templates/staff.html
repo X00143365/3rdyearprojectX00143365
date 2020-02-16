@@ -1,0 +1,97 @@
+{%extends 'base.html'%}
+{%block title %} Staff Members {% endblock%}
+
+{% block content %}
+
+
+<h1> Staff Members</h1>
+
+
+{% if messages %}
+  {% for message in messages %}
+
+    <div class="alert alert-success alert-dismissable" role="alert">
+      <button class="close" data-dismiss="alert">
+        <small><sup>x</sup></small>
+      </button>
+    {{ message }}
+  </div>
+  {% endfor %}
+
+{%endif %}
+</br>
+
+
+
+<form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
+  
+
+  <input class="form-control mr-sm-2" type="add" placeholder="Staff Name" aria-label="Add" name="staffname"> 
+  <input class="form-control mr-sm-2" type="date" placeholder="Date of Birth" name="staffdob">
+  <input class="form-control mr-sm-2" type="add" placeholder="Address" aria-label="Add" name="staffaddress">
+  <input class="form-control mr-sm-2" type="add" placeholder="Email" aria-label="Add" name="staffemail">
+  <input class="form-control mr-sm-2" type="add" placeholder="Phone" aria-label="Add" name="staffphone">
+  <input class="form-control mr-sm-2" type="add" placeholder="Contract Type" aria-label="Add" name="staffcontract">
+  <input class="form-control mr-sm-2" type="date" placeholder="Start Date" name="startdate">
+  <input class="form-control mr-sm-2" type="date" placeholder="Termination Date" name="termindate">
+  <input class="form-control mr-sm-2" type="add" placeholder="Qualifications" aria-label="Add" name="staffqual">
+
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add Staff Member</button>
+</form>
+
+</br>
+
+{% if all_staff %}
+     
+ 
+  <table class="table table-bordered">
+
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Staff Name</th>
+        <th scope="col">Date of Birth</th>
+        <th scope="col">Address</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Contract Type</th>
+        <th scope="col">Starting Date</th>
+        <th scope="col">Termination Date</th>
+        <th scope="col">Qualifications</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    
+ {% for staff in all_staff %}
+    <tbody>
+
+          <tr class="table-secondary">
+            <td> <a href="{% url 'editstaff' staff.id %}">{{staff.staffname}}</a> </td>
+            <td> {{staff.staffdob|date:"d M Y"}} </td>
+            <td> {{staff.staffaddress}} </td>
+            <td> {{staff.staffemail}} </td>
+            <td> {{staff.staffphone}} </td>
+            <td> {{staff.staffcontract}} </td>
+            <td> {{staff.startdate|date:"d M Y"}} </td>
+            <td> {{staff.termindate|date:"d M Y"}} </td>
+            <td> {{staff.staffqual}} </td>
+            <td><center> <a href="{% url 'deletestaff' staff.id %}">X</a></center> </td>
+          </tr>
+      
+     
+
+    </tbody>
+
+ {% endfor %}
+  </table>
+
+ 
+
+{% endif %}
+
+</br>
+
+<body>
+    
+
+
+{% endblock %}

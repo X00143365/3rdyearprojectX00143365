@@ -1,0 +1,27 @@
+{%extends 'base.html'%}
+{%block title %} Staff List | Edit {% endblock %}
+
+{% block content %}
+
+    {% if staff %}
+        
+
+<form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
+  
+  <input class="form-control mr-sm-2" type="add" placeholder="Staff Name" value="{{staff.staffname}}"aria-label="Add" name="staffname">
+  <input class="form-control mr-sm-2" type="text" placeholder="Date of Birth" value="{{staff.staffdob|date:"SHORT_DATE_FORMAT"}}" aria-label="Add" name="staffdob">
+  <input class="form-control mr-sm-2" type="add" placeholder="Address" value="{{staff.staffaddress}}" aria-label="Add" name="staffaddress">
+  <input class="form-control mr-sm-2" type="add" placeholder="Email" value="{{staff.staffemail}}"aria-label="Add" name="staffemail">
+  <input class="form-control mr-sm-2" type="add" placeholder="Phone" value="{{staff.staffphone}}" aria-label="Add" name="staffphone">
+  <input class="form-control mr-sm-2" type="add" placeholder="Contract Type" value="{{staff.staffcontract}}" aria-label="Add" name="staffcontract">
+  <input class="form-control mr-sm-2" type="text" placeholder="Start Date" value="{{staff.startdate|date:"SHORT_DATE_FORMAT"}}" aria-label="Add" name="startdate">
+  <input class="form-control mr-sm-2" type="text" placeholder="Termination Date" value="{{staff.termindate|date:"SHORT_DATE_FORMAT"}}" aria-label="Add" name="termindate">
+  <input class="form-control mr-sm-2" type="add" placeholder="Qualifications" value="{{staff.staffqual}}" aria-label="Add" name="staffqual">
+
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Save Staff Member</button>
+</form>
+
+
+    {% endif %}
+
+{% endblock %}

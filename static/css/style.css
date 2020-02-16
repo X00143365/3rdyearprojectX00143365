@@ -1,0 +1,18 @@
+/* Strike when task is completed status */
+.strikethru {text-decoration: line-through; }
+th {text-align: center;} 
+
+/* Set standard background image for all pages */
+
+body {background-image:  url( '../images/grasshorse.jpg' );
+	background-repeat: no-repeat;
+    background-size: cover} 
+
+
+/* Class for datepicker */
+.datepicker{
+     
+}
+
+
+    
