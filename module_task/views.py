@@ -41,12 +41,14 @@ def task(request):
         #if form.isvalid():
         form.save()
         all_tasks = TaskList.objects.all
+        all_staff = StaffList.objects.all
         messages.success(request, ('Task has been successfully added!'))
-        return render(request,'task.html',{'all_tasks': all_tasks})
+        return render(request,'task.html',{'all_tasks': all_tasks,'all_staff': all_staff})
 
     else:   
         all_tasks = TaskList.objects.all
-        return render(request,'task.html',{'all_tasks': all_tasks})
+        all_staff = StaffList.objects.all
+        return render(request,'task.html',{'all_tasks': all_tasks,'all_staff': all_staff})
 
 
 #function to delete a single task with success message
