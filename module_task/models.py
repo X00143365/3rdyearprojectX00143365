@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime,date
+from django.urls import reverse
 
 
 
@@ -34,3 +35,15 @@ class TaskList(models.Model):
 
     def __str__(self):
         return str(self.taskdate) + ' | ' + str(self.tasktime) + ' | ' +str(self.assingees) + ' | ' + self.taskdesc + ' | ' + str(self.location) + ' | ' +str(self.assingees) + ' | '  + str(self.completed)  + ' | '  + str(self.comments) 
+
+
+class RotaList(models.Model):
+
+    rotastaffid = models.ForeignKey(StaffList,blank=True,null=True,default="staff member deleted", on_delete=models.SET_DEFAULT,limit_choices_to={'termindate': None},)
+    rotadate = models.DateField(auto_now_add=False, auto_now=False)
+    timefrom = models.TimeField(auto_now_add=False, auto_now=False,blank=True,null=True)
+    timeto = models.TimeField(auto_now_add=False, auto_now=False,blank=True,null=True)
+    comments = models.CharField(max_length=100,blank=True)
+      
+    def __str__(self):
+        return str(self.rotastaffid) + ' | ' + str(self.rotadate) + ' | ' + str(self.timefrom) + ' | ' + str(self.timeto) + ' | ' + self.comments 

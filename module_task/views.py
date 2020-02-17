@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
-from .models import TaskList,StaffList
-from .forms import TaskListForm,StaffListForm
+from .models import TaskList,StaffList,RotaList
+from .forms import TaskListForm,StaffListForm,RotaListForm
 
 from django.contrib import messages
 from django.http import HttpResponseRedirect
@@ -146,13 +146,49 @@ def editstaff(request, staff_id):
         staff = StaffList.objects.get(pk=staff_id)
         return render(request,'editstaff.html',{'staff': staff})
 
- ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
+ ####################  STAFF ROTA   ########################################
+
+
+#function display task module and to post new tasks to database table
+def rota(request):
+
+    if request.method == 'POST':
+        form = RotaListForm(request.POST or None)
+
+        #save item and return success message
+        #if form.isvalid():
+        form.save()
+        all_rotas = RotaList.objects.all().order_by('rotadate','timefrom')
+        all_staff = StaffList.objects.all
+        messages.success(request, ('Rota item has been successfully added!'))
+        return render(request,'rota.html',{'all_rotas': all_rotas,'all_staff': all_staff})
+
+    else:   
+        all_rotas = RotaList.objects.all().order_by('rotadate','timefrom')
+        all_staff = StaffList.objects.all
+        return render(request,'rota.html',{'all_rotas': all_rotas,'all_staff': all_staff})
+
+
+#function to delete a single item with success message
+def delete(request, rota_id):
+    rota = RotaList.objects.get(pk=rota_id)
+    rota.delete()
+    messages.success(request, ('Item has been successfully deleted!'))
+    return redirect('rota')
+
+
+
+#function to edit rota item ...... 
+
+
+
+####################  HORSES   ########################################
+
 
 def horses(request):
     return render(request,'horses.html',{})
 
-def rota(request):
-    return render(request,'rota.html',{})
+####################  LESSONS   ########################################
 
 def lessons(request):
     return render(request,'lessons.html',{})

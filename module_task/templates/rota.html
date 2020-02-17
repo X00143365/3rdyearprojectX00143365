@@ -1,9 +1,90 @@
 {%extends 'base.html'%}
 
+
+{%block title %} Rota List {% endblock%}
+
 {% block content %}
 
-<title>Staff  Rota</title>
-<p> page for staff rota</p>
+<body>
+<h1> Staff Rota </h1>
+
+
+{% if messages %}
+  {% for message in messages %}
+
+    <div class="alert alert-success alert-dismissable" role="alert">
+      <button class="close" data-dismiss="alert">
+        <small><sup>x</sup></small>
+      </button>
+    {{ message }}
+  </div>
+  {% endfor %}
+
+{%endif %}
+</br>
+
+
+
+
+<form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
+  
+    <select class="form-control mr-sm-2" name="rotastaffid">
+    <option value="" selected="selected">Not Selected</option>
+    {% for staff in all_staff %}
+        {% if staff.termindate is None %}
+           <option value="{{ staff.id }}">{{ staff.staffname }}</option>
+        {% endif %}
+    {% endfor %}     
+   </select>
+  <input class="form-control mr-sm-2" type="text" id="datepicker" placeholder="Date"  name="rotadate">
+  <input class="form-control mr-sm-2" type="time" aria-label="Add" name="timefrom">
+  <input class="form-control mr-sm-2" type="time" aria-label="Add" name="timeto">
+  <input class="form-control mr-sm-2" type="add" placeholder="Comments" aria-label="Add" name="comments">
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add Item</button>
+</form>
+
+</br>
+  {% if all_rotas %}
+  <table class="table table-bordered">
+
+    <thead class="thead-dark">
+      <tr>
+
+        
+        <th scope="col">Staff</th>
+        <th scope="col">Date</th>
+        <th scope="col">Time From</th>
+        <th scope="col">Time To</th>
+        <th scope="col">Comments</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      {% for rotas in all_rotas %}
+ 
+            <tr class="table table-borderless table-light" border-color>
+              
+              <td> {{rotas.rotastaffid.staffname}} </td>
+              <td> {{rotas.rotadate|date:"d M Y"}} </td>
+              <td> {{rotas.timefrom|time:"h i a"}} </td>
+              <td> {{rotas.timeto|time:"h i a"}} </td>
+              <td> {{rotas.comments}} </td>
+              <td><center> <a href="{% url 'delete' rotas.id %}">X</a></center> </td>
+            </tr>
+        
+
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+
+</br>
+
+</body>
+    
 
 
 {% endblock %}
+
