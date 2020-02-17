@@ -77,19 +77,21 @@ def markincomplete(request, task_id):
 def edittask(request, task_id):
     if request.method == 'POST':
         task = TaskList.objects.get(pk=task_id)
+        all_staff = StaffList.objects.all
         form = TaskListForm(request.POST or None, instance=task)
         
 
         #save task and return success message
        # if form.isvalid():
         form.save()
+        
         messages.success(request, ('Task has been modified!'))
         return redirect('task')
 
     else:   
         task = TaskList.objects.get(pk=task_id)
-      
-        return render(request,'edittask.html' ,{'task': task})
+        all_staff = StaffList.objects.all
+        return render(request,'edittask.html' ,{'task': task,'all_staff': all_staff})
 
 
 ####################  CUSTOMERS   ########################################

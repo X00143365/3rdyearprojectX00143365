@@ -12,11 +12,39 @@
         <input class="form-control mr-sm-2" type="time"  value="{{task.tasktime|time:"H:i"}}" aria-label="Add" name="tasktime">
         <input class="form-control mr-sm-2" type="add" placeholder="Description" value="{{task.taskdesc}}" aria-label="Add" name="taskdesc">
         <input class="form-control mr-sm-2" type="add" placeholder="Location" value="{{task.location}}" aria-label="Add" name="location">
-        <input class="form-control mr-sm-2" type="add" placeholder="Assignee" value="{{task.assingees.staffname}}" aria-label="Add" name="assingees">
-        <input class="form-control mr-sm-2" type="add" placeholder="Comments" value="{{task.comments}}" aria-label="Add" name="comments">
+
+        <select class="form-control mr-sm-2" name="assingees">
+        {% if task.assingees is not None%}
+            
+
+            <option value="{{task.assingees.id}}" selected="selected">{{task.assingees.staffname}}</option>
+            <option value="" >Not Selected</option>
+            
+             {% for staff in all_staff %}
+                {% if staff.termindate is None %}
+                <option value="{{ staff.id }}">{{ staff.staffname }}</option>
+                {% endif %}
+            {% endfor %}  
+        
+        {% else %}
+            
+            <option value="" selected="selected">Not Selected</option>
+            {% for staff in all_staff %}
+                {% if staff.termindate is None %}
+                <option value="{{ staff.id }}">{{ staff.staffname }}</option>
+                {% endif %}
+            {% endfor %}  
+            
+
+        {% endif %}
+
+        </select>
+        
         <input type="hidden" value="{{task.completed}}" name="completed">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Save Edit</button>
         </form>
+
+
 
 
     {% endif %}

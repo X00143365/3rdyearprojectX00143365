@@ -13,7 +13,8 @@
   <input class="form-control mr-sm-2" type="add" placeholder="Address" value="{{staff.staffaddress}}" aria-label="Add" name="staffaddress">
   <input class="form-control mr-sm-2" type="add" placeholder="Email" value="{{staff.staffemail}}"aria-label="Add" name="staffemail">
   <input class="form-control mr-sm-2" type="add" placeholder="Phone" value="{{staff.staffphone}}" aria-label="Add" name="staffphone">
-  <input class="form-control mr-sm-2" type="add" placeholder="Contract Type" value="{{staff.staffcontract}}" aria-label="Add" name="staffcontract">
+  <select class="form-control mr-sm-2"  placeholder="Contract Type"  name="staffcontract"> <option value="Temporary">Temporary</option>
+  <option value="Permanent">Permanent</option> </select>
   <input class="form-control mr-sm-2" type="text" placeholder="Start Date" value="{{staff.startdate|date:"SHORT_DATE_FORMAT"}}" aria-label="Add" name="startdate">
   <input class="form-control mr-sm-2" type="text" placeholder="Termination Date" value="{{staff.termindate|date:"SHORT_DATE_FORMAT"}}" aria-label="Add" name="termindate">
   <input class="form-control mr-sm-2" type="add" placeholder="Qualifications" value="{{staff.staffqual}}" aria-label="Add" name="staffqual">

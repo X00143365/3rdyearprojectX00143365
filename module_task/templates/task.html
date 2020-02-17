@@ -34,6 +34,7 @@
   <input class="form-control mr-sm-2" type="add" placeholder="Description" aria-label="Add" name="taskdesc">
   <input class="form-control mr-sm-2" type="add" placeholder="Location" aria-label="Add" name="location">
   <select class="form-control mr-sm-2" name="assingees">
+    <option value="" selected="selected">Not Selected</option>
     {% for staff in all_staff %}
         {% if staff.termindate is None %}
            <option value="{{ staff.id }}">{{ staff.staffname }}</option>
