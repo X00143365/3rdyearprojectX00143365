@@ -40,13 +40,13 @@ def task(request):
         #save task and return success message
         #if form.isvalid():
         form.save()
-        all_tasks = TaskList.objects.all
+        all_tasks = TaskList.objects.all().order_by('taskdate','tasktime')
         all_staff = StaffList.objects.all
         messages.success(request, ('Task has been successfully added!'))
         return render(request,'task.html',{'all_tasks': all_tasks,'all_staff': all_staff})
 
     else:   
-        all_tasks = TaskList.objects.all
+        all_tasks = TaskList.objects.all().order_by('taskdate','tasktime')
         all_staff = StaffList.objects.all
         return render(request,'task.html',{'all_tasks': all_tasks,'all_staff': all_staff})
 
