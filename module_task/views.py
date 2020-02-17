@@ -4,6 +4,7 @@ from .forms import TaskListForm,StaffListForm
 
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+from django.utils import timezone
 
 
 ############### DASHBOARD/HOME/WEATHER API #########################################################################
@@ -15,10 +16,15 @@ from django.http import HttpResponseRedirect
 def index(request):
     import json
     import requests
+
+    now = timezone.now()
+
+    current_tasks = TaskList.objects.filter(taskdate__lte=now).order_by('taskdate','tasktime')
+    
   
   ## Uncomment next line for api request - disabled during development to prevent multiple calls
   
-    ##api_request = requests.get("http://dataservice.accuweather.com/forecasts/v1/daily/1day/1079064?apikey=kmrDSxJckPLxThWvCAlCGsk3ZRhbCimd%20&language=en-us&details=true&metric=true")
+    #api_request = requests.get("http://dataservice.accuweather.com/forecasts/v1/daily/1day/1079064?apikey=kmrDSxJckPLxThWvCAlCGsk3ZRhbCimd%20&language=en-us&details=true&metric=true")
     
 
     try:
@@ -27,7 +33,7 @@ def index(request):
     except Exception as e:
         api = "Weather API Error"
 
-    return render(request,'index.html',{'api':api}) 
+    return render(request,'index.html',{'current_tasks': current_tasks,'api':api}) 
 
 ############### TASKS ##################################################################################
 

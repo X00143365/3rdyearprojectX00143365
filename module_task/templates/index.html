@@ -6,37 +6,75 @@
 
 <title>Dashboard</title>
 <p> Add summary tasks for today here .. need divs & containers </p>
+</br>
+
+
+  <table class="table table-bordered">
+
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Time</th>
+        <th scope="col">Task</th>
+        <th scope="col">Location</th>
+        <th scope="col">Assigned To</th>
+     
+      </tr>
+    </thead>
+    
+  {% if current_tasks %}
+    <tbody>
+      {% for tasks in current_tasks %}
+        {% if tasks.completed %}
+          <tr class="table table-secondary table-borderless">
+          </tr>
+      
+        {% else %}
+            <tr class="table table-borderless table-light" border-color>
+              <td> {{tasks.taskdate|date:"d M Y"}} </td>
+              <td> {{tasks.tasktime|time:"h i a"}} </td>
+              <td> <a href="{% url 'edittask' tasks.id %}">{{tasks.taskdesc}}</a> </td>
+              <td> {{tasks.location}} </td>
+              <td> {{tasks.assingees.staffname}} </td>
+
+            </tr>
+        {% endif %}
+
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+
+</br>
+
+
+
 
 </br>
 {% csrf_token %}
-
-
-
 {% if api %}
 
 
-<p> Forecast in Saggart provided by <img src="../static/images/AccuLogo_Sml.jpg" alt="Accuweather" > </p>
-
-
-
-{% if api.Headline.Text %}
-    <p>{{ api.Headline.Text }} </p>
-{% elif api.Code == "ServiceUnavailable" %}
-    <p><font color="red"> Accuweather Service is Unvailable: </p>
-      {{ api.Message }}</font> </p>
-{% elif api == "Weather API Error" %}
-     <p><font color="red">* Weather Forecast from Accuweather is currently unavailable *</font></p>
-{% else %}
-    <p><font color="red">* Weather Forecast from Accuweather is currently unavailable *</font></p>
-{% endif %}
-
-
-</br>
-
-
-
-
 <table class="table table-sm table-light ">
+  <thead>
+      <tr>
+      <th scope="col" colspan="1">Forecast in Saggart provided by <img src="../static/images/AccuLogo_Sml.jpg" alt="Accuweather" ></th>
+  
+      <th scope="col" colspan="2">
+      {% if api.Headline.Text %}
+        <p>{{ api.Headline.Text }} </p>
+      {% elif api.Code == "ServiceUnavailable" %}
+        <p><font color="red"> Accuweather Service is Unvailable: </p>
+        {{ api.Message }}</font> </p>
+      {% elif api == "Weather API Error" %}
+        <p><font color="red">* Weather Forecast from Accuweather is currently unavailable *</font></p>
+      {% else %}
+        <p><font color="red">* Weather Forecast from Accuweather is currently unavailable *</font></p>
+      {% endif %}
+      </th>
+      
+  </thead>
   <thead>
       <tr>
       <th scope="col" colspan="1"></th>
