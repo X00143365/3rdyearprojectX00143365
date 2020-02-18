@@ -29,7 +29,7 @@ class TaskList(models.Model):
     tasktime=models.TimeField(auto_now_add=False, auto_now=False,blank=True,null=True)
     taskdesc = models.CharField(max_length=200)
     location= models.CharField(max_length=50)
-    assingees= models.ForeignKey(StaffList,blank=True,null=True,default="staff member deleted", on_delete=models.SET_DEFAULT,limit_choices_to={'termindate': None},)
+    assingees= models.ForeignKey(StaffList,blank=True,null=True, on_delete=models.CASCADE,limit_choices_to={'termindate': None},)
     completed = models.BooleanField(default=False)
     comments=models.CharField(max_length=100,blank=True)
 
@@ -39,7 +39,7 @@ class TaskList(models.Model):
 
 class RotaList(models.Model):
 
-    rotastaffid = models.ForeignKey(StaffList,blank=True,null=True,default="staff member deleted", on_delete=models.SET_DEFAULT,limit_choices_to={'termindate': None},)
+    rotastaffid = models.ForeignKey(StaffList,blank=True,null=True, on_delete=models.CASCADE,limit_choices_to={'termindate': None},)
     rotadate = models.DateField(auto_now_add=False, auto_now=False)
     timefrom = models.TimeField(auto_now_add=False, auto_now=False,blank=True,null=True)
     timeto = models.TimeField(auto_now_add=False, auto_now=False,blank=True,null=True)

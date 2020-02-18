@@ -65,12 +65,12 @@
  
             <tr class="table table-borderless table-light" border-color>
               
-              <td> {{rotas.rotastaffid.staffname}} </td>
+              <td><a href="{% url 'editrota' rotas.id %}"> {{rotas.rotastaffid.staffname}}</a> </td>
               <td> {{rotas.rotadate|date:"d M Y"}} </td>
               <td> {{rotas.timefrom|time:"h i a"}} </td>
               <td> {{rotas.timeto|time:"h i a"}} </td>
               <td> {{rotas.comments}} </td>
-              <td><center> <a href="{% url 'delete' rotas.id %}">X</a></center> </td>
+              <td><center> <a href="{% url 'deleterota' rotas.id %}">X</a></center> </td>
             </tr>
         
 

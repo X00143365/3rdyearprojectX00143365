@@ -169,17 +169,34 @@ def rota(request):
         return render(request,'rota.html',{'all_rotas': all_rotas,'all_staff': all_staff})
 
 
-#function to delete a single item with success message
-def delete(request, rota_id):
+#function to delete a rota item with success message
+def deleterota(request, rota_id):
     rota = RotaList.objects.get(pk=rota_id)
     rota.delete()
     messages.success(request, ('Item has been successfully deleted!'))
     return redirect('rota')
 
 
+#function to edit rota
+def editrota(request, rota_id):
+    if request.method == 'POST':
+        rota = RotaList.objects.get(pk=rota_id)
+        all_staff = StaffList.objects.all
+        form = RotaListForm(request.POST or None, instance=rota)
+        
 
-#function to edit rota item ...... 
+        #save item and return success message
+       # if form.isvalid():
+        form.save()
+        
+        messages.success(request, ('Item has been modified!'))
+        return redirect('rota')
 
+    else:   
+        rota = RotaList.objects.get(pk=rota_id)
+        all_staff = StaffList.objects.all
+        return render(request,'editrota.html' ,{'rota': rota,'all_staff': all_staff})
+		
 
 
 ####################  HORSES   ########################################
