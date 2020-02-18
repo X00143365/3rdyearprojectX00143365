@@ -20,6 +20,7 @@ def index(request):
     now = timezone.now()
 
     current_tasks = TaskList.objects.filter(taskdate__lte=now).order_by('taskdate','tasktime')
+    current_rota = RotaList.objects.filter(rotadate=now).order_by('rotadate','timefrom')
     
   
   ## Uncomment next line for api request - disabled during development to prevent multiple calls
@@ -33,7 +34,7 @@ def index(request):
     except Exception as e:
         api = "Weather API Error"
 
-    return render(request,'index.html',{'current_tasks': current_tasks,'api':api}) 
+    return render(request,'index.html',{'current_tasks': current_tasks,'current_rota': current_rota,'api':api}) 
 
 ############### TASKS ##################################################################################
 

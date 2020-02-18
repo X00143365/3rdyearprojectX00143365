@@ -6,6 +6,44 @@
 
 <title>Dashboard</title>
 <p> Add summary tasks for today here .. need divs & containers </p>
+
+
+</br>
+
+
+  <table class="table table-bordered">
+
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Staff</th>
+        <th scope="col">Time From</th>
+        <th scope="col">Time To</th>
+     
+      </tr>
+    </thead>
+    
+  {% if current_rota %}
+    <tbody>
+      {% for rotas in current_rota %}
+      
+            <tr class="table table-borderless table-light" border-color>
+              <td> {{rotas.rotastaffid.staffname}} </td>
+              <td> {{rotas.timefrom|time:"h i a"}} </td>
+              <td> {{rotas.timeto|time:"h i a"}} </td>
+
+            </tr>
+        
+
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+
+</br>
+
+
+
 </br>
 
 
