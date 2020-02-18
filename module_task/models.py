@@ -18,10 +18,10 @@ class StaffList(models.Model):
     termindate =models.DateField(blank=True, null=True)
     staffqual =models.CharField(max_length=250, blank=True,null=True)
 
-   
-  
     def __str__(self):
-        return str(self.id) +  ' | '+ self.staffname +  ' | '+ str(self.staffdob)+ ' | '+ self.staffaddress+ ' | '+ self.staffemail+ ' | '+ self.staffphone+ ' | '+ self.staffcontract + ' | '+ str(self.startdate) + ' | ' + str(self.termindate) + ' | '+ self.staffqual
+        return str(self.id) +  ' | ' + str(self.staffname) +  ' | '+ str(self.staffdob) + ' | '+ self.staffaddress+ ' | '+ self.staffemail + ' | '+ self.staffphone + ' | ' + str(self.staffcontract) + ' | ' + str(self.startdate) + ' | ' + str(self.termindate) + ' | ' + str(self.staffqual)
+  
+    
 
 class TaskList(models.Model):
 
@@ -46,4 +46,4 @@ class RotaList(models.Model):
     comments = models.CharField(max_length=100,blank=True)
       
     def __str__(self):
-        return str(self.rotastaffid) + ' | ' + str(self.rotadate) + ' | ' + str(self.timefrom) + ' | ' + str(self.timeto) + ' | ' + self.comments 
+        return str(self.rotastaffid) + ' | ' + str(self.rotadate) + ' | ' + str(self.timefrom) + ' | ' + str(self.timeto) + ' | ' + str(self.comments)
