@@ -199,6 +199,19 @@ def editrota(request, rota_id):
 		
 
 
+ ####################  STAFF ROTA VIEW ONLY ########################################
+
+
+#function display task module and to post new tasks to database table
+def rotaview(request):
+
+   
+        all_rotas = RotaList.objects.all().order_by('rotadate','timefrom')
+        return render(request,'rotaview.html',{'all_rotas': all_rotas})
+
+
+
+
 ####################  HORSES   ########################################
 
 
