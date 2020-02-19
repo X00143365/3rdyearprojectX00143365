@@ -46,6 +46,10 @@
   <button class="btn btn-secondary my-2 my-sm-0" type="submit">Add Task</button>
 </form>
 
+
+    <button class="btn btn-secondary my-2 my-sm-0" type="submit"><a href="{% url 'delallcomplete' %}">Delete All Completed Tasks</a></button>
+
+
 </br>
   {% if all_tasks %}
   <table class="table table-bordered">

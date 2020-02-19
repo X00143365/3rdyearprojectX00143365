@@ -72,6 +72,20 @@ def delete(request, task_id):
     messages.success(request, ('Task has been successfully deleted!'))
     return redirect('task')
 
+#function to delete all complete tasks with success message
+@login_required
+def delallcomplete(request):
+    try:
+        TaskList.objects.get(completed = True).delete()
+        messages.success(request, ('Tasks have been successfully deleted!'))
+        return redirect('task')  
+    except:
+        messages.success(request, ('No tasks to delete!'))
+        return redirect('task') 
+        
+
+
+
 #function to flag tasks as complete
 @login_required
 def markcomplete(request, task_id):
