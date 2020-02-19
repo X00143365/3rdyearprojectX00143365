@@ -2,9 +2,12 @@ from django.shortcuts import render,redirect
 from .models import TaskList,StaffList,RotaList
 from .forms import TaskListForm,StaffListForm,RotaListForm
 
+
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.utils import timezone
+
+now = timezone.now()
 
 
 ############### DASHBOARD/HOME/WEATHER API #########################################################################
@@ -17,7 +20,7 @@ def index(request):
     import json
     import requests
 
-    now = timezone.now()
+    
 
     current_tasks = TaskList.objects.filter(taskdate__lte=now).order_by('taskdate','tasktime')
     current_rota = RotaList.objects.filter(rotadate=now).order_by('rotadate','timefrom')
@@ -159,13 +162,13 @@ def rota(request):
         #save item and return success message
         #if form.isvalid():
         form.save()
-        all_rotas = RotaList.objects.all().order_by('rotadate','timefrom')
+        all_rotas = RotaList.objects.all().order_by('-rotadate','-timefrom')
         all_staff = StaffList.objects.all
         messages.success(request, ('Rota item has been successfully added!'))
         return render(request,'rota.html',{'all_rotas': all_rotas,'all_staff': all_staff})
 
     else:   
-        all_rotas = RotaList.objects.all().order_by('rotadate','timefrom')
+        all_rotas = RotaList.objects.all().order_by('-rotadate','-timefrom')
         all_staff = StaffList.objects.all
         return render(request,'rota.html',{'all_rotas': all_rotas,'all_staff': all_staff})
 
@@ -206,9 +209,12 @@ def editrota(request, rota_id):
 #function display task module and to post new tasks to database table
 def rotaview(request):
 
-   
+        now = timezone.now()
+
+        future_rota = RotaList.objects.filter(rotadate__gte=now).order_by('rotadate','timefrom')
         all_rotas = RotaList.objects.all().order_by('rotadate','timefrom')
-        return render(request,'rotaview.html',{'all_rotas': all_rotas})
+        return render(request,'rotaview.html',{'all_rotas': all_rotas,'future_rota': future_rota})
+
 
 
 

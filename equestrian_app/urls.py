@@ -20,5 +20,6 @@ from module_task import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('module_task.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
     
 ]

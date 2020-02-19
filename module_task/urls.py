@@ -2,7 +2,10 @@
 from django.urls import path
 from . import views
 
+
+
 urlpatterns = [ 
+    
     path('',views.index, name='index'),
     path('people',views.people, name='people'),
     path('task',views.task, name='task'),
@@ -19,4 +22,5 @@ urlpatterns = [
     path('edittask/<task_id>', views.edittask, name='edittask'),  
     path('editstaff/<staff_id>', views.editstaff, name='editstaff'),
     path('editrota/<rota_id>', views.editrota, name='editrota'),
+    
 ]
