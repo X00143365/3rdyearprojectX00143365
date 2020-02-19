@@ -6,7 +6,9 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.utils import timezone
 
+
 now = timezone.now()
+
 
 
 ############### DASHBOARD/HOME/WEATHER API #########################################################################

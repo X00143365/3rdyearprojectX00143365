@@ -39,20 +39,32 @@
                     </li>
                     <li class="nav-item active">
                       <a class="nav-link" href="{% url 'task' %}">Tasks</a>
-
                       <li class="nav-item active">
                       <a class="nav-link" href="{% url 'rotaview' %}">Staff Rota</a>
                     </li>
                      </li>
+                      {% ifequal user.groups.all.0.name "managergroup" %}
                       <li class="nav-item active">
                       <a class="nav-link" href="{% url 'rota' %}">Update Rota</a>
                     </li>
+                      {% endifequal %}
+                      {% ifequal user.username "admin" %}
+                      <li class="nav-item active">
+                      <a class="nav-link" href="{% url 'rota' %}">Update Rota</a>
+                    </li>
+                      {% endifequal %}
                       </li>
                       <li class="nav-item active">
                       <a class="nav-link" href="{% url 'lessons' %}">Lessons</a>
                     </li>
+                    {% ifequal user.groups.all.0.name "managergroup" %}
                       <li class="nav-item active">
                       <a class="nav-link" href="{% url 'staff' %}">Staff</a>
+                    {% endifequal %}
+                    {% ifequal user.username "admin" %}
+                      <li class="nav-item active">
+                      <a class="nav-link" href="{% url 'staff' %}">Staff</a>
+                    {% endifequal %}
                     </li>
                     <li class="nav-item active">
                       <a class="nav-link" href="{% url 'people' %}">Customers</a>
