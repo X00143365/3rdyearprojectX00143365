@@ -1,8 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import TaskList,StaffList,RotaList
 from .forms import TaskListForm,StaffListForm,RotaListForm
-
-
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.utils import timezone
@@ -15,7 +14,7 @@ now = timezone.now()
 ##  This weather API is for a trial account and is limited to 50 calls/day, more than this will result in no data
 
 
-
+@login_required
 def index(request):
     import json
     import requests
@@ -42,6 +41,8 @@ def index(request):
 ############### TASKS ##################################################################################
 
 #function display task module and to post new tasks to database table
+
+@login_required
 def task(request):
 
     if request.method == 'POST':
@@ -62,6 +63,7 @@ def task(request):
 
 
 #function to delete a single task with success message
+@login_required
 def delete(request, task_id):
     task = TaskList.objects.get(pk=task_id)
     task.delete()
@@ -69,6 +71,7 @@ def delete(request, task_id):
     return redirect('task')
 
 #function to flag tasks as complete
+@login_required
 def markcomplete(request, task_id):
     task = TaskList.objects.get(pk=task_id)
     task.completed= True
@@ -76,6 +79,7 @@ def markcomplete(request, task_id):
     return redirect('task')
 
 #function to flag tasks as not complete
+@login_required
 def markincomplete(request, task_id):
     task = TaskList.objects.get(pk=task_id)
     task.completed= False
@@ -84,6 +88,7 @@ def markincomplete(request, task_id):
     return redirect('task')
 
 #function to edit tasks
+@login_required
 def edittask(request, task_id):
     if request.method == 'POST':
         task = TaskList.objects.get(pk=task_id)
@@ -104,12 +109,13 @@ def edittask(request, task_id):
         return render(request,'edittask.html' ,{'task': task,'all_staff': all_staff})
 
 
-####################  CUSTOMERS   ########################################
-def people(request):
-    return render(request,'people.html',{})
+
 
 
 ####################  STAFF   ########################################
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='staffgroup').count() == 0, login_url='/accounts/login/')
+
 def staff(request):
     if request.method == 'POST':
         form = StaffListForm(request.POST or None)
@@ -127,6 +133,8 @@ def staff(request):
 
 
 #function to delete a single staff member with success message
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='staffgroup').count() == 0, login_url='/accounts/login/')
 def deletestaff(request, staff_id):
     staff = StaffList.objects.get(pk=staff_id)
     staff.delete()
@@ -135,6 +143,8 @@ def deletestaff(request, staff_id):
 
 
 #function to edit staff member
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='staffgroup').count() == 0, login_url='/accounts/login/')
 def editstaff(request, staff_id):
     if request.method == 'POST':
         staff = StaffList.objects.get(pk=staff_id)
@@ -150,10 +160,12 @@ def editstaff(request, staff_id):
         staff = StaffList.objects.get(pk=staff_id)
         return render(request,'editstaff.html',{'staff': staff})
 
- ####################  STAFF ROTA   ########################################
+ ####################  STAFF ROTA EDIT ########################################
 
 
 #function display task module and to post new tasks to database table
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='staffgroup').count() == 0, login_url='/accounts/login/')
 def rota(request):
 
     if request.method == 'POST':
@@ -174,6 +186,8 @@ def rota(request):
 
 
 #function to delete a rota item with success message
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='staffgroup').count() == 0, login_url='/accounts/login/')
 def deleterota(request, rota_id):
     rota = RotaList.objects.get(pk=rota_id)
     rota.delete()
@@ -182,6 +196,8 @@ def deleterota(request, rota_id):
 
 
 #function to edit rota
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='staffgroup').count() == 0, login_url='/accounts/login/')
 def editrota(request, rota_id):
     if request.method == 'POST':
         rota = RotaList.objects.get(pk=rota_id)
@@ -207,6 +223,8 @@ def editrota(request, rota_id):
 
 
 #function display task module and to post new tasks to database table
+
+@login_required
 def rotaview(request):
 
         now = timezone.now()
@@ -216,17 +234,20 @@ def rotaview(request):
         return render(request,'rotaview.html',{'all_rotas': all_rotas,'future_rota': future_rota})
 
 
-
+####################  CUSTOMERS   ########################################
+@login_required
+def people(request):
+    return render(request,'people.html',{})
 
 
 ####################  HORSES   ########################################
 
-
+@login_required
 def horses(request):
     return render(request,'horses.html',{})
 
 ####################  LESSONS   ########################################
-
+@login_required
 def lessons(request):
     return render(request,'lessons.html',{})
 
