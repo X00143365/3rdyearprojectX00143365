@@ -235,6 +235,18 @@ def editrota(request, rota_id):
 		
 
 
+#function to delete all past rotas with success message
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='staffgroup').count() == 0, login_url='/accounts/login/')
+def delpastrota(request):
+    try:
+        RotaList.objects.filter(rotadate__lt=now).delete()
+        messages.success(request, ('Rotas have been successfully deleted!'))
+        return redirect('rota')  
+    except:
+        messages.success(request, ('No rotas to delete!'))
+        return redirect('rota') 
+
  ####################  STAFF ROTA VIEW ONLY ########################################
 
 
@@ -243,7 +255,6 @@ def editrota(request, rota_id):
 @login_required
 def rotaview(request):
 
-        now = timezone.now()
 
         future_rota = RotaList.objects.filter(rotadate__gte=now).order_by('rotadate','timefrom')
         all_rotas = RotaList.objects.all().order_by('rotadate','timefrom')
