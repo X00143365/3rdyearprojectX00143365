@@ -33,12 +33,10 @@
   <input class="form-control mr-sm-2" type="time" aria-label="Add" name="tasktime">
   <input class="form-control mr-sm-2" type="add" placeholder="Description" aria-label="Add" name="taskdesc">
   <input class="form-control mr-sm-2" type="add" placeholder="Location" aria-label="Add" name="location">
-  <select class="form-control mr-sm-2" name="assingees">
+ <select class="form-control mr-sm-2" name="assingees">
     <option value="" selected="selected">Not Selected</option>
-    {% for staff in all_staff %}
-        {% if staff.termindate is None %}
-           <option value="{{ staff.id }}">{{ staff.staffname }}</option>
-        {% endif %}
+    {% for staff in avail_staff %}
+        <option value="{{ staff.id }}">{{ staff.staffname }}</option>      
     {% endfor %}     
    </select>
 
@@ -49,6 +47,17 @@
 
     <button class="btn btn-secondary my-2 my-sm-0" type="submit"><a href="{% url 'delallcomplete' %}">Delete All Completed Tasks</a></button>
 
+
+<p> Available list from rota </p>
+  {% for staff in avail_list %}
+   <p> item a {{ staff }} </p>
+  {% endfor %}
+
+
+<p> Available list from staff </p>
+  {% for staff in avail_staff %}
+   <p> item b {{ staff.staffname }} </p>
+  {% endfor %}
 
 </br>
   {% if all_tasks %}

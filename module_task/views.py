@@ -11,6 +11,7 @@ now = timezone.now()
 
 
 
+
 ############### DASHBOARD/HOME/WEATHER API #########################################################################
 ##  https://developer.accuweather.com/
 ##  This weather API is for a trial account and is limited to 50 calls/day, more than this will result in no data
@@ -44,8 +45,16 @@ def index(request):
 
 #function display task module and to post new tasks to database table
 
+
+
+
 @login_required
 def task(request):
+
+    avail_list = RotaList.objects.values_list('rotastaffid', flat=True).filter(rotadate=now)
+    all_staff = StaffList.objects.all
+    all_tasks = TaskList.objects.all().order_by('taskdate','tasktime')
+    avail_staff = StaffList.objects.filter(id__in = avail_list)
 
     if request.method == 'POST':
         form = TaskListForm(request.POST or None)
@@ -53,15 +62,14 @@ def task(request):
         #save task and return success message
         #if form.isvalid():
         form.save()
-        all_tasks = TaskList.objects.all().order_by('taskdate','tasktime')
-        all_staff = StaffList.objects.all
         messages.success(request, ('Task has been successfully added!'))
-        return render(request,'task.html',{'all_tasks': all_tasks,'all_staff': all_staff})
+        return render(request,'task.html',{'all_tasks': all_tasks,'all_staff': all_staff,'avail_staff': avail_staff,'avail_list': avail_list})
 
     else:   
-        all_tasks = TaskList.objects.all().order_by('taskdate','tasktime')
-        all_staff = StaffList.objects.all
-        return render(request,'task.html',{'all_tasks': all_tasks,'all_staff': all_staff})
+        return render(request,'task.html',{'all_tasks': all_tasks,'all_staff': all_staff,'avail_staff': avail_staff,'avail_list': avail_list})
+
+
+
 
 
 #function to delete a single task with success message
