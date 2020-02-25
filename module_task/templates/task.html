@@ -142,19 +142,36 @@ $.ajaxSetup({
 
   $.ajax({
   type: "POST",
-
+  async: false,
   url: '{% url "getselectdate" %}',
   data: {'taskdate': taskdate },
   dataType: 'json',
 
   success: function(avail_staff){
-    console.log(avail_staff) }
+    console.log(avail_staff);
+
+  // ***** This function should clear out and append new availalbe staff values in dropdown from json array, instead appends 'undefined'  
+  // ***** Hit F12 and see 'Console log' to view the array of available staff from staff rota for date selected in form 
+     // $('#assingees').empty(); 
+     // $.each(avail_staff, function (i, item) {
+     // $("#assingees").append('<option value="' + item.id + '">' + item.staffname + '</option>');
+     //                       });
+
+
+
+   
+  }
 
 
 
 });
 
-  
+
+
+
+
+
+
    
 });
 
