@@ -15,6 +15,7 @@ urlpatterns = [
     path('rotaview',views.rotaview, name='rotaview'),
     path('lessons',views.lessons, name='lessons'),
     path('delete/<task_id>', views.delete, name ='delete'),
+    path('getselectdate', views.getselectdate, name ='getselectdate'),
     path('delallcomplete', views.delallcomplete, name ='delallcomplete'),
     path('delpastrota', views.delpastrota, name ='delpastrota'),
     path('deletestaff/<staff_id>', views.deletestaff, name ='deletestaff'),

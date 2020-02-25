@@ -1,11 +1,17 @@
 {%extends 'base.html'%}
 
 
+
+
 {%block title %} Task List {% endblock%}
+
+
 
 {% block content %}
 
+
 <body>
+
 <h1> Tasks for Completion</h1>
 
 
@@ -29,16 +35,20 @@
 <form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
   
 
-  <input class="form-control mr-sm-2" type="text" id="datepicker" placeholder="Date"  name="taskdate">
+  <input class="form-control mr-sm-2" type="text" id="datepicker" placeholder="Date"  name="taskdate" >
   <input class="form-control mr-sm-2" type="time" aria-label="Add" name="tasktime">
   <input class="form-control mr-sm-2" type="add" placeholder="Description" aria-label="Add" name="taskdesc">
   <input class="form-control mr-sm-2" type="add" placeholder="Location" aria-label="Add" name="location">
- <select class="form-control mr-sm-2" name="assingees">
-    <option value="" selected="selected">Not Selected</option>
-    {% for staff in avail_staff %}
-        <option value="{{ staff.id }}">{{ staff.staffname }}</option>      
+
+
+
+ <select class="form-control mr-sm-2" name="assingees" id="assingees" >
+  <option value="" selected="selected">Not Selected</option>
+    {% for staff in all_staff %}
+        {% if staff.termindate is None %}
+           <option value="{{ staff.id }}">{{ staff.staffname }}</option>
+        {% endif %}
     {% endfor %}     
-   </select>
 
   <input class="form-control mr-sm-2" type="add" placeholder="Comments" aria-label="Add" name="comments">
   <button class="btn btn-secondary my-2 my-sm-0" type="submit">Add Task</button>
@@ -48,16 +58,7 @@
     <button class="btn btn-secondary my-2 my-sm-0" type="submit"><a href="{% url 'delallcomplete' %}">Delete All Completed Tasks</a></button>
 
 
-<p> Available list from rota </p>
-  {% for staff in avail_list %}
-   <p> item a {{ staff }} </p>
-  {% endfor %}
 
-
-<p> Available list from staff </p>
-  {% for staff in avail_staff %}
-   <p> item b {{ staff.staffname }} </p>
-  {% endfor %}
 
 </br>
   {% if all_tasks %}
@@ -115,9 +116,59 @@
 
 </br>
 
-</body>
-    
+{% block javascript %}
+<script>
+$("#datepicker").change(function () {
+  
+  var csrftoken = Cookies.get('csrftoken');
+  console.log(csrftoken);
+  var task_date = $(this).val();
+  console.log(task_date);
+
+  taskdate = task_date.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
+  console.log(taskdate);
+
+ function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+  $.ajax({
+  type: "POST",
+
+  url: '{% url "getselectdate" %}',
+  data: {'taskdate': taskdate },
+  dataType: 'json',
+
+  success: function(avail_staff){
+    console.log(avail_staff) }
+
+
+
+});
+
+  
+   
+});
+
+
+</script>
+
+{% endblock %}
 
 
 {% endblock %}
+
+
+
+</body>
+    
+
 

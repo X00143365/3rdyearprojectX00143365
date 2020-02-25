@@ -5,9 +5,11 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.utils import timezone
-
+from django.http import JsonResponse
+from datetime import datetime
 
 now = timezone.now()
+select_date=now
 
 
 
@@ -47,30 +49,39 @@ def index(request):
 
 
 
-
 @login_required
 def task(request):
-
-    avail_list = RotaList.objects.values_list('rotastaffid', flat=True).filter(rotadate=now)
-    all_staff = StaffList.objects.all
-    all_tasks = TaskList.objects.all().order_by('taskdate','tasktime')
-    avail_staff = StaffList.objects.filter(id__in = avail_list)
-
+    
     if request.method == 'POST':
         form = TaskListForm(request.POST or None)
 
         #save task and return success message
         #if form.isvalid():
         form.save()
+        all_tasks = TaskList.objects.all().order_by('taskdate','tasktime')
+        all_staff = StaffList.objects.all
         messages.success(request, ('Task has been successfully added!'))
-        return render(request,'task.html',{'all_tasks': all_tasks,'all_staff': all_staff,'avail_staff': avail_staff,'avail_list': avail_list})
+        return render(request,'task.html',{'all_tasks': all_tasks,'all_staff': all_staff})
 
     else:   
-        return render(request,'task.html',{'all_tasks': all_tasks,'all_staff': all_staff,'avail_staff': avail_staff,'avail_list': avail_list})
+        all_tasks = TaskList.objects.all().order_by('taskdate','tasktime')
+        all_staff = StaffList.objects.all
+        return render(request,'task.html',{'all_tasks': all_tasks,'all_staff': all_staff})
 
 
+## AJAX function for getting avaible staff for date selected, only returns JSON, hit F12 to see ##
+@login_required
+def getselectdate(request):
+   
+
+    select_date = request.POST.get('taskdate', None)
 
 
+    avail_list = RotaList.objects.values_list('rotastaffid', flat=True).filter(rotadate=select_date)
+    avail_staff = StaffList.objects.filter(id__in = avail_list).values()
+    return JsonResponse({"avail_staff": list(avail_staff)})
+		
+      
 
 #function to delete a single task with success message
 @login_required
