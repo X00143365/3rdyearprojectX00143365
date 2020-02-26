@@ -8,43 +8,10 @@
 
 
 
-</br>
-
-
-  <table class="table table-bordered">
-
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">Staff</th>
-        <th scope="col">Time From</th>
-        <th scope="col">Time To</th>
-     
-      </tr>
-    </thead>
-    
-  {% if current_rota %}
-    <tbody>
-      {% for rotas in current_rota %}
-      
-            <tr class="table table-borderless table-light" border-color>
-              <td> {{rotas.rotastaffid.staffname}} </td>
-              <td> {{rotas.timefrom|time:"h i a"}} </td>
-              <td> {{rotas.timeto|time:"h i a"}} </td>
-
-            </tr>
-        
-
-      {% endfor %}
-    </tbody>
-  </table>
-  {% endif %}
-
-
-</br>
 
 
 
-</br>
+<div class="fullcolumn">
 
 
   <table class="table table-bordered">
@@ -84,12 +51,46 @@
   {% endif %}
 
 
-</br>
+</div>
+
+
+<div class="halfcolumn">
 
 
 
 
-</br>
+  <table class="table table-bordered">
+
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Staff</th>
+        <th scope="col">Time From</th>
+        <th scope="col">Time To</th>
+     
+      </tr>
+    </thead>
+    
+  {% if current_rota %}
+    <tbody>
+      {% for rotas in current_rota %}
+      
+            <tr class="table table-borderless table-light" border-color>
+              <td> {{rotas.rotastaffid.staffname}} </td>
+              <td> {{rotas.timefrom|time:"h i a"}} </td>
+              <td> {{rotas.timeto|time:"h i a"}} </td>
+
+            </tr>
+        
+
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+
+</div>
+
+<div class="halfcolumn">
 {% csrf_token %}
 {% if api %}
 
@@ -158,3 +159,5 @@
 {% endif %}
 
 {% endblock %}
+
+</div>

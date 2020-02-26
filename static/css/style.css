@@ -9,10 +9,65 @@ body {background-image:  url( '../images/grasshorse.jpg' );
     background-size: cover} 
 
 
+/* Layout for mobiles */
+@media screen and (max-width:600px)
+  {
+
+
+    .maincolumn {width: 100%;}
+}
+
+
+
+/* Layout for small to medium devices */
+@media only screen and (min-width: 600px) 
+{
+    
+    .medcolumn {
+        float: left;
+        width: 45%;
+        padding: 15px;}
+
+
+
+/* Layout for large devices */
+@media only screen and (min-width: 992px)
+ {
+
+.halfcolumn {
+    float: left;
+    width: 48%;
+    padding: 15px;}
+
+.fullcolumn {
+    float: left;
+    width: 100%;
+    padding: 15px;}
+
+
+}  
+
+
+
+
+
+
+
+
 /* Class for datepicker */
 .datepicker{
      
 }
 
+nav a {
+    margin-left: 3px;
+    margin-right: 3px;
+  }
 
+#logbox {
     
+    margin-left: 60px;
+    font-size: 75%;
+    
+  }
+

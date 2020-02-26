@@ -33,7 +33,7 @@
   <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light >
                 
-          <a class="navbar-brand" >COOLMINE EQUESTRIAN        |  </a>
+          <a class="navbar-brand" ><strong>COOLMINE EQUESTRIAN  | </strong> </a>
                   
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav mr-auto">
@@ -76,17 +76,18 @@
                       <a class="nav-link" href="{% url 'horses' %}">Horses</a>
                     </li>
 
+                  <div id=logbox>
                     <span style = "float: right;">
                     {% if user.is_authenticated %}
                      {{ user.username }} is logged in
-                     <p><a href="{% url 'logout' %}">logout</a></p>
+                     <p><a href="{% url 'logout' %}">LOG OUT</a></p>
                     {% else %}
                       <p>You are not logged in</p>
                       
                     {% endif %}
 
                     </span>
-
+                  </div>
 
                   </ul>
                  
