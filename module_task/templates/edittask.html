@@ -3,6 +3,7 @@
 
 {% block content %}
 
+<body>
     {% if task %}
         
 
@@ -13,31 +14,14 @@
         <input class="form-control mr-sm-2" type="add" placeholder="Description" value="{{task.taskdesc}}" aria-label="Add" name="taskdesc">
         <input class="form-control mr-sm-2" type="add" placeholder="Location" value="{{task.location}}" aria-label="Add" name="location">
 
-        <select class="form-control mr-sm-2" name="assingees">
-        {% if task.assingees is not None%}
-            
-
-            <option value="{{task.assingees.id}}" selected="selected">{{task.assingees.staffname}}</option>
-            <option value="" >Not Selected</option>
-            
-             {% for staff in all_staff %}
-                {% if staff.termindate is None %}
-                <option value="{{ staff.id }}">{{ staff.staffname }}</option>
-                {% endif %}
-            {% endfor %}  
+        <select class="form-control mr-sm-2" name="assingees"  >
         
-        {% else %}
-            
-            <option value="" selected="selected">Not Selected</option>
-            {% for staff in all_staff %}
-                {% if staff.termindate is None %}
+        <option value="{{task.assingees.id}}" selected="selected">{{task.assingees.staffname}}</option>
+            {% for staff in avail_staff %}
+                
                 <option value="{{ staff.id }}">{{ staff.staffname }}</option>
-                {% endif %}
+                
             {% endfor %}  
-            
-
-        {% endif %}
-
         </select>
         
         <input type="hidden" value="{{task.completed}}" name="completed">
@@ -51,4 +35,70 @@
 
 {% endblock %}
 
+/<body>
 
+
+
+{% block javascript %}
+<script>
+$("#datepicker").change(function () {
+  
+  
+  var csrftoken = Cookies.get('csrftoken');
+ // console.log(csrftoken);
+  var task_date = $(this).val();
+  console.log(task_date);
+
+  taskdate = task_date.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
+  console.log(taskdate);
+
+
+ function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+  $.ajax({
+  type: "POST",
+  async: false,
+  url: '{% url "getselectdate_edit)" %}',
+  data: {'taskdate': taskdate },
+  dataType: 'json',
+
+  success: function(avail_staff){
+    console.log(avail_staff);
+    var staff=avail_staff;
+    
+    
+//console.log(staff.avail_staff[0].staffname);  
+
+$('#assingees').empty();
+
+
+$.each(staff.avail_staff, function (i, item) {
+//console.log(item.staffname);
+$("#assingees").append('<option value="' + item.id + '">' + item.staffname + '</option>');
+});
+    
+
+   
+  }
+
+
+
+});
+
+   
+});
+
+
+</script>
+
+{% endblock %}

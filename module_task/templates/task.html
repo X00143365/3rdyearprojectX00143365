@@ -43,12 +43,7 @@
 
 
  <select class="form-control mr-sm-2" name="assingees" id="assingees" >
-  <option value="" selected="selected">Not Selected</option>
-    {% for staff in all_staff %}
-        {% if staff.termindate is None %}
-           <option value="{{ staff.id }}">{{ staff.staffname }}</option>
-        {% endif %}
-    {% endfor %}     
+  <option value="" selected="selected">Not Selected</option>    
 
   <input class="form-control mr-sm-2" type="add" placeholder="Comments" aria-label="Add" name="comments">
   <button class="btn btn-secondary my-2 my-sm-0" type="submit">Add Task</button>
@@ -122,12 +117,12 @@ $("#datepicker").change(function () {
   
   
   var csrftoken = Cookies.get('csrftoken');
-  console.log(csrftoken);
+  //console.log(csrftoken);
   var task_date = $(this).val();
-  console.log(task_date);
+  //console.log(task_date);
 
   taskdate = task_date.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
-  console.log(taskdate);
+  //console.log(taskdate);
 
 
  function csrfSafeMethod(method) {
@@ -154,30 +149,16 @@ $.ajaxSetup({
     var staff=avail_staff;
     
     
-    //console.log(staff.avail_staff[1].staffname);
+//console.log(staff.avail_staff[0].staffname);  
 
 $('#assingees').empty();
 
 
 $.each(staff.avail_staff, function (i, item) {
-
 //console.log(item.staffname);
 $("#assingees").append('<option value="' + item.id + '">' + item.staffname + '</option>');
-
 });
     
-   
-//https://pythonspot.com/json-encoding-and-decoding-with-python/
-    
-
-  // ***** This function should clear out and append new availalbe staff values in dropdown from json array, instead appends 'undefined'  
-  // ***** Hit F12 and see 'Console log' to view the array of available staff from staff rota for date selected in form 
-     // $('#assingees').empty(); 
-     // $.each(avail_staff, function (i, item) {
-     // $("#assingees").append('<option value="' + item.id + '">' + item.staffname + '</option>');
-     //                       });
-
-
 
    
   }
@@ -185,10 +166,6 @@ $("#assingees").append('<option value="' + item.id + '">' + item.staffname + '</
 
 
 });
-
-
-
-
 
 
 

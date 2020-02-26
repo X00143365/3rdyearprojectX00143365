@@ -9,7 +9,7 @@ from django.http import JsonResponse
 from datetime import datetime
 
 now = timezone.now()
-select_date=now
+select_date=None
 
 
 
@@ -37,11 +37,15 @@ def index(request):
 
     try:
         api = json.loads(api_request.content)
-
+            
     except Exception as e:
         api = "Weather API Error"
 
+
     return render(request,'index.html',{'current_tasks': current_tasks,'current_rota': current_rota,'api':api}) 
+
+
+
 
 ############### TASKS ##################################################################################
 
@@ -125,9 +129,12 @@ def markincomplete(request, task_id):
 #function to edit tasks
 @login_required
 def edittask(request, task_id):
+
+    
+
     if request.method == 'POST':
         task = TaskList.objects.get(pk=task_id)
-        all_staff = StaffList.objects.all
+  
         form = TaskListForm(request.POST or None, instance=task)
         
 
@@ -140,10 +147,23 @@ def edittask(request, task_id):
 
     else:   
         task = TaskList.objects.get(pk=task_id)
-        all_staff = StaffList.objects.all
-        return render(request,'edittask.html' ,{'task': task,'all_staff': all_staff})
+        select_date = task.taskdate
+        avail_list = RotaList.objects.values_list('rotastaffid', flat=True).filter(rotadate=select_date)
+        avail_staff = StaffList.objects.filter(id__in = avail_list).values()
+        return render(request,'edittask.html' ,{'task': task,'avail_staff': avail_staff})
 
 
+## AJAX function for getting avaible staff for date selected in edit page, only returns JSON, hit F12 to see ##
+@login_required
+def getselectdate_edit(request):
+   
+    
+    select_date = request.POST.get('taskdate', None)
+
+
+    avail_list = RotaList.objects.values_list('rotastaffid', flat=True).filter(rotadate=select_date)
+    avail_staff = StaffList.objects.filter(id__in = avail_list).values()
+    return JsonResponse({"avail_staff": list(avail_staff)})
 
 
 
