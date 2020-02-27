@@ -6,7 +6,7 @@
 {% block content %}
 
 <body>
-<h1> Staff Rota (Edit) </h1>
+<h1> Update Staff Rota  </h1>
 
 
 {% if messages %}
@@ -28,6 +28,8 @@
 
 <form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
   
+    <div>
+    <label for="rotastaffid">Staff Name</label>
     <select class="form-control mr-sm-2" name="rotastaffid">
     <option value="" selected="selected">Not Selected</option>
     {% for staff in all_staff %}
@@ -36,14 +38,15 @@
         {% endif %}
     {% endfor %}     
    </select>
+   </div>
   <input class="form-control mr-sm-2" type="text" id="datepicker" placeholder="Date"  name="rotadate">
   <input class="form-control mr-sm-2" type="time" aria-label="Add" name="timefrom">
   <input class="form-control mr-sm-2" type="time" aria-label="Add" name="timeto">
   <input class="form-control mr-sm-2" type="add" placeholder="Comments" aria-label="Add" name="comments">
-  <button class="btn btn-secondary my-2 my-sm-0" type="submit">Add Item</button>
+  <button class="btn btn-secondary my-2 my-sm-0 buttons" type="submit">Add Item</button>
 </form>
 
-<button class="btn btn-secondary my-2 my-sm-0" type="submit"><a href="{% url 'delpastrota' %}">Delete Past Rotas</a></button>
+<button class="btn btn-secondary my-2 my-sm-0 buttons delbtn" type="submit"><a href="{% url 'delpastrota' %}">Delete Past Rotas</a></button>
 
 </br>
   {% if all_rotas %}
@@ -82,7 +85,7 @@
   {% endif %}
 
 
-</br>
+
 
 </body>
     

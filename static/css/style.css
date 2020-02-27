@@ -9,25 +9,6 @@ body {background-image:  url( '../images/grasshorse.jpg' );
     background-size: cover} 
 
 
-/* Layout for mobiles */
-@media screen and (max-width:600px)
-  {
-
-
-    .maincolumn {width: 100%;}
-}
-
-
-
-/* Layout for small to medium devices */
-@media only screen and (min-width: 600px) 
-{
-    
-    .medcolumn {
-        float: left;
-        width: 45%;
-        padding: 15px;}
-
 
 
 /* Layout for large devices */
@@ -51,7 +32,10 @@ body {background-image:  url( '../images/grasshorse.jpg' );
 
 
 
-
+/* break class used thoughout web pages to separate content */
+.break {line-break: normal;
+    clear:left;
+    float: centre;}
 
 
 /* Class for datepicker */
@@ -59,15 +43,82 @@ body {background-image:  url( '../images/grasshorse.jpg' );
      
 }
 
+/*standard header 1 format*/
+h1 {background-color: rgba(231, 228, 228, 0.808);
+    color: dimgray;
+    text-align: center;
+    border-style: outset
+    padding-top:15px;
+    padding-bottom:5px;
+    font-size:25px;
+     }
+
 nav a {
     margin-left: 3px;
     margin-right: 3px;
   }
 
-#logbox {
+  nav a:hover {
+    border-top: 4px solid white;
+    border-bottom: 4px solid white;
+    padding: 6px 0; 
+  }
+
+
+
+  label { 
+    
+    display: inline-block;
+    font-weight: bolder;
+    color: dimgray;
+    font-size:12px;
+     }
+    
+}
+
+
+
+
+  /* Table layout */
+  table {
+    border: 2px solid dimgray;
+    padding-top:5px;
+    padding-bottom:5px;
+  }
+
+
+  form {
+    background-color: rgba(231, 228, 228, 0.808);
+    width: 800px;
+    padding: 15px;
+    margin: auto;
+    position: relative;
+   }
+
+  
+   .buttons { 
+    
+    display: inline-block;
+    font-weight: bolder;
+    color: white;
+    font-size:16px;
+    border-color: white;
+    margin-left: 10px;
+   ;
+     }
+
+    .delbtn { 
+        background-color: rgba(231, 228, 228, 0.808);
+        margin-left: 400px;
+     
+         }
+    
+
+
+
+   #logbox {
     
     margin-left: 60px;
     font-size: 75%;
     
   }
-

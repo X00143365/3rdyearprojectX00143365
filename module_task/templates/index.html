@@ -8,21 +8,31 @@
 
 
 
+<div class="header">
+<h1>DASHBOARD
+   </h1>
+</div>
 
 
 
 <div class="fullcolumn">
 
 
-  <table class="table table-bordered">
+  <table class="table table-bordered table-sm">
 
-    <thead class="thead-dark">
+      <thead class="thead-dark">
       <tr>
-        <th scope="col">Date</th>
-        <th scope="col">Time</th>
-        <th scope="col">Task</th>
-        <th scope="col">Location</th>
-        <th scope="col">Assigned To</th>
+        <th scope="col" colspan="6">Tasks to be Completed</th>
+      </tr>
+
+    </thead>
+    <thead class="thead-light">
+      <tr>
+        <th scope="col" colspan="1">Date</th>
+        <th scope="col" colspan="1">Time</th>
+        <th scope="col" colspan="2">Task</th>
+        <th scope="col" colspan="1">Location</th>
+        <th scope="col" colspan="1">Assigned To</th>
      
       </tr>
     </thead>
@@ -36,11 +46,11 @@
       
         {% else %}
             <tr class="table table-borderless table-light" border-color>
-              <td> {{tasks.taskdate|date:"d M Y"}} </td>
-              <td> {{tasks.tasktime|time:"h i a"}} </td>
-              <td> <a href="{% url 'edittask' tasks.id %}">{{tasks.taskdesc}}</a> </td>
-              <td> {{tasks.location}} </td>
-              <td> {{tasks.assingees.staffname}} </td>
+              <td scope="col" colspan="1"> {{tasks.taskdate|date:"d M Y"}} </td>
+              <td scope="col" colspan="1"> {{tasks.tasktime|time:"h i a"}} </td>
+              <td scope="col" colspan="2"> <a href="{% url 'edittask' tasks.id %}">{{tasks.taskdesc}}</a> </td>
+              <td scope="col" colspan="1"> {{tasks.location}} </td>
+              <td scope="col" colspan="1"> {{tasks.assingees.staffname}} </td>
 
             </tr>
         {% endif %}
@@ -59,13 +69,21 @@
 
 
 
-  <table class="table table-bordered">
+  <table class="table table-bordered table-sm" >
 
     <thead class="thead-dark">
       <tr>
-        <th scope="col">Staff</th>
-        <th scope="col">Time From</th>
-        <th scope="col">Time To</th>
+        <th scope="col" colspan="3">Todays Rota</th>
+        
+     
+      </tr>
+    </thead>
+
+    <thead class="thead-light">
+      <tr>
+        <th scope="col" colspan="1">Staff</th>
+        <th scope="col" colspan="1">Time From</th>
+        <th scope="col" colspan="1">Time To</th>
      
       </tr>
     </thead>
@@ -98,33 +116,36 @@
 <table class="table table-sm table-light ">
   <thead>
       <tr>
-      <th scope="col" colspan="1">Forecast in Saggart provided by <img src="../static/images/AccuLogo_Sml.jpg" alt="Accuweather" ></th>
-  
-      <th scope="col" colspan="2">
+      <th scope="col" colspan="3">Forecast in Saggart provided by <img src="../static/images/AccuLogo_Sml.jpg" alt="Accuweather" ></th>
+  </thead>
+  <thead>
+      <th scope="col" colspan="3">
       {% if api.Headline.Text %}
-        <p>{{ api.Headline.Text }} </p>
+        <p style="font-family:Comic Sans MS"><font color="dimgray ">{{ api.Headline.Text }}</font> </p>
       {% elif api.Code == "ServiceUnavailable" %}
-        <p><font color="red"> Accuweather Service is Unvailable: </p>
+        <p style="font-family:Comic Sans MS"<font color="red"> Accuweather Service is Unvailable: </p>
         {{ api.Message }}</font> </p>
       {% elif api == "Weather API Error" %}
-        <p><font color="red">* Weather Forecast from Accuweather is currently unavailable *</font></p>
+        <p style="font-family:Comic Sans MS"><font color="red">* Weather Forecast from Accuweather is currently unavailable *</font></p>
       {% else %}
-        <p><font color="red">* Weather Forecast from Accuweather is currently unavailable *</font></p>
+        <p style="font-family:Comic Sans MS"><font color="red">* Weather Forecast from Accuweather is currently unavailable *</font></p>
       {% endif %}
       </th>
       
   </thead>
+  
   <thead>
+      
       <tr>
       <th scope="col" colspan="1"></th>
-      <th scope="col" colspan="1">Todays Forecast</th>
-      <th scope="col" colspan="1">Tonights Forecast</th>
+      <th scope="col" colspan="1"><p style="text-decoration: underline;">Todays Forecast<p></th>
+      <th scope="col" colspan="1"><p style="text-decoration: underline;">Tonights Forecast<p></th>
   </thead>
   <tbody>
-  <tr style="text-align:center">
+  <tr style="text-align:center; font-family:Comic Sans MS" > 
       <th scope="row"></th>
-      <td> {{ api.DailyForecasts.0.Day.LongPhrase }} </td>
-      <td> {{ api.DailyForecasts.0.Night.LongPhrase }} </td>    
+      <td><font color="dimgray "><strong> {{ api.DailyForecasts.0.Day.LongPhrase }}</strong></font> </td>
+      <td><font color="dimgray "><strong> {{ api.DailyForecasts.0.Night.LongPhrase }}</strong></font> </td>    
     </tr>
   
     <tr style="text-align:center">

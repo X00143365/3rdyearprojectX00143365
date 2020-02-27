@@ -4,6 +4,8 @@
 {% block content %}
 
 <body>
+
+<h1> Edit Task Item</h1>
     {% if task %}
         
 
@@ -25,7 +27,7 @@
         </select>
         
         <input type="hidden" value="{{task.completed}}" name="completed">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Save Edit</button>
+        <button class="btn btn-secondary my-2 my-sm-0 buttons" type="submit">Save Edit</button>
         </form>
 
 

@@ -32,7 +32,7 @@ def index(request):
   
   ## Uncomment next line for api request - disabled during development to prevent multiple calls
   
-    #api_request = requests.get("http://dataservice.accuweather.com/forecasts/v1/daily/1day/1079064?apikey=kmrDSxJckPLxThWvCAlCGsk3ZRhbCimd%20&language=en-us&details=true&metric=true")
+    api_request = requests.get("http://dataservice.accuweather.com/forecasts/v1/daily/1day/1079064?apikey=kmrDSxJckPLxThWvCAlCGsk3ZRhbCimd%20&language=en-us&details=true&metric=true")
     
 
     try:
@@ -293,7 +293,7 @@ def delpastrota(request):
 
 @login_required
 def rotaview(request):
-
+        
 
         future_rota = RotaList.objects.filter(rotadate__gte=now).order_by('rotadate','timefrom')
         all_rotas = RotaList.objects.all().order_by('rotadate','timefrom')

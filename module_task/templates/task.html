@@ -29,33 +29,57 @@
 {%endif %}
 </br>
 
-
-
-
 <form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
   
-
+  <div>
+  <label for="taskdate">Task Date</label>
   <input class="form-control mr-sm-2" type="text" id="datepicker" placeholder="Date"  name="taskdate" >
+  </div>
+  <div>
+  <label for="tasktime">Time(HH:MM)</label>
   <input class="form-control mr-sm-2" type="time" aria-label="Add" name="tasktime">
-  <input class="form-control mr-sm-2" type="add" placeholder="Description" aria-label="Add" name="taskdesc">
-  <input class="form-control mr-sm-2" type="add" placeholder="Location" aria-label="Add" name="location">
-
-
-
- <select class="form-control mr-sm-2" name="assingees" id="assingees" >
+  </div>
+  <div>
+  <label for="assingees">Staff Name</label>
+ <select class="form-control mr-sm-2 " name="assingees" id="assingees" >
   <option value="" selected="selected">Not Selected</option>    
-
+  </select>
+  </div>
+   <div>
+  <label for="taskdesc">Task Description</label>
+  <input class="form-control mr-sm-2" type="add" placeholder="Description" aria-label="Add" name="taskdesc">
+  </div>
+   <div class="break">
+  <label for="location">Location</label>
+  <input class="form-control mr-sm-2" type="add" placeholder="Location" aria-label="Add" name="location">
+  </div>
+   <div>
+  <label for="comments">Comments</label>
   <input class="form-control mr-sm-2" type="add" placeholder="Comments" aria-label="Add" name="comments">
-  <button class="btn btn-secondary my-2 my-sm-0" type="submit">Add Task</button>
+  </div>
+  
+  <div>
+  <button class="btn btn-secondary my-2 my-sm-0 buttons" type="submit">Add Task</button>
+  </div>
+
 </form>
 
+<div class="break">
+<p> </p>
+</div>
 
-    <button class="btn btn-secondary my-2 my-sm-0" type="submit"><a href="{% url 'delallcomplete' %}">Delete All Completed Tasks</a></button>
+<div>
+<button class="btn btn-secondary my-2 my-sm-0 buttons delbtn" type="submit"><a href="{% url 'delallcomplete' %}">Delete All Completed Tasks</a></button>
+</div>
+
+<div class="break">
+<p> </p>
+</div>
+  
 
 
 
-
-</br>
+<div class="break">
   {% if all_tasks %}
   <table class="table table-bordered">
 
@@ -65,11 +89,12 @@
         
         <th scope="col">Date</th>
         <th scope="col">Time</th>
+        <th scope="col">Assigned To</th>
         <th scope="col">Task</th>
         <th scope="col">Location</th>
-        <th scope="col">Assigned To</th>
-        <th scope="col">Status</th>
         <th scope="col">Comments</th>
+        <th scope="col">Status</th>
+        <th scope="col">Action</th>
         <th scope="col">Delete</th>
       </tr>
     </thead>
@@ -81,11 +106,12 @@
            
             <td> {{tasks.taskdate|date:"d M Y"}} </td>
             <td> {{tasks.tasktime|time:"h i a"}} </td>
+            <td> {{tasks.assingees.staffname}} </td>
             <td class="strikethru"><a href="{% url 'edittask' tasks.id %}"> {{tasks.taskdesc}}</a> </td>
             <td> {{tasks.location}} </td>
-            <td> {{tasks.assingees.staffname}} </td>
-            <td> Done<a href="{% url 'markincomplete' tasks.id %}" style="float: right">Undo?</a></td>
             <td> {{tasks.comments}} </td>
+            <td> Done</td>
+            <td> <a href="{% url 'markincomplete' tasks.id %}" style="float: right">Undo</a></td>
             <td><center> <a href="{% url 'delete' tasks.id %}">X</a></center> </td>
           </tr>
       
@@ -94,11 +120,12 @@
               
               <td> {{tasks.taskdate|date:"d M Y"}} </td>
               <td> {{tasks.tasktime|time:"h i a"}} </td>
+              <td> {{tasks.assingees.staffname}} </td>
               <td> <a href="{% url 'edittask' tasks.id %}">{{tasks.taskdesc}}</a> </td>
               <td> {{tasks.location}} </td>
-              <td> {{tasks.assingees.staffname}} </td>
-              <td> To Do <a href="{% url 'markcomplete' tasks.id %}"style="float: right">Done?</a> </td>
               <td> {{tasks.comments}} </td>
+              <td> To Do  </td>
+              <td> <a href="{% url 'markcomplete' tasks.id %}"style="float: right">Done</a> </td>
               <td><center> <a href="{% url 'delete' tasks.id %}">X</a></center> </td>
             </tr>
         {% endif %}
@@ -108,8 +135,9 @@
   </table>
   {% endif %}
 
+</div>
 
-</br>
+
 
 {% block javascript %}
 <script>

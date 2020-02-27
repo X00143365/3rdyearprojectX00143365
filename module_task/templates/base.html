@@ -31,9 +31,14 @@
     
   </head>
   <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light >
+
+
+
+
+        <nav class="navbar navbar-expand-sm navbar-light bg-light  >
                 
-          <a class="navbar-brand" ><strong>COOLMINE EQUESTRIAN  | </strong> </a>
+          <a class="navbar-brand" ><strong>COOLMINE EQUESTRIAN   </strong> </a>
+          <img src="static/images/blackhorsesml.jpg"  >  
                   
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav mr-auto">
@@ -56,10 +61,7 @@
                       <a class="nav-link" href="{% url 'rota' %}">Update Rota</a>
                     </li>
                       {% endifequal %}
-                      </li>
-                      <li class="nav-item active">
-                      <a class="nav-link" href="{% url 'lessons' %}">Lessons</a>
-                    </li>
+                   
                     {% ifequal user.groups.all.0.name "managergroup" %}
                       <li class="nav-item active">
                       <a class="nav-link" href="{% url 'staff' %}">Staff</a>
@@ -68,6 +70,10 @@
                       <li class="nav-item active">
                       <a class="nav-link" href="{% url 'staff' %}">Staff</a>
                     {% endifequal %}
+                    </li>
+                       </li>
+                      <li class="nav-item active">
+                      <a class="nav-link" href="{% url 'lessons' %}">Lessons</a>
                     </li>
                     <li class="nav-item active">
                       <a class="nav-link" href="{% url 'people' %}">Customers</a>
@@ -96,10 +102,19 @@
 
 
   </br>
+
+
+
+
     <div class="container">
     {% block content %}
+    
     {% endblock %}
     </div>
+
+
+
+
 
     
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -116,7 +131,16 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script>
  
+
+
+
   </body>
+
+
+</footer>
+
+</div>
+
 </html>
 
 
