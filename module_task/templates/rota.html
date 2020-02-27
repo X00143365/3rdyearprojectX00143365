@@ -39,16 +39,32 @@
     {% endfor %}     
    </select>
    </div>
+  <div>
+  <label for="rotadate">Date</label>
   <input class="form-control mr-sm-2" type="text" id="datepicker" placeholder="Date"  name="rotadate">
+  </div>
+  <div>
+  <label for="timefrom">From Time</label>
   <input class="form-control mr-sm-2" type="time" aria-label="Add" name="timefrom">
+  </div>
+  <div>
+  <label for="timeto">To Time</label>
   <input class="form-control mr-sm-2" type="time" aria-label="Add" name="timeto">
+  </div>
+  <div>
+  <label for="comments">Comments</label>  
   <input class="form-control mr-sm-2" type="add" placeholder="Comments" aria-label="Add" name="comments">
+  </div>
   <button class="btn btn-secondary my-2 my-sm-0 buttons" type="submit">Add Item</button>
 </form>
-
+<div class="break">
+<p> </p>
+</div>
 <button class="btn btn-secondary my-2 my-sm-0 buttons delbtn" type="submit"><a href="{% url 'delpastrota' %}">Delete Past Rotas</a></button>
+<div class="break">
+<p> </p>
+</div>
 
-</br>
   {% if all_rotas %}
   <table class="table table-bordered">
 

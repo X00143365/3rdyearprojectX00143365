@@ -26,17 +26,43 @@
 
 <form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
   
-
+  <div>
+  <label for="staffname">Staff Name</label>
   <input class="form-control mr-sm-2" type="add" placeholder="Staff Name" aria-label="Add" name="staffname"> 
+  </div>
+  <div>
+  <label for="staffdob">Date of Birth</label>
   <input class="form-control mr-sm-2" type="date" placeholder="Date of Birth" name="staffdob">
+  </div>
+  <div>
+  <label for="staffaddress">Address</label>
   <input class="form-control mr-sm-2" type="add" placeholder="Address" aria-label="Add" name="staffaddress">
+  </div>
+  <div>
+  <label for="staffemail">Email</label>
   <input class="form-control mr-sm-2" type="add" placeholder="Email" aria-label="Add" name="staffemail">
+  </div>
+  <div>
+  <label for="staffphone">Phone</label>
   <input class="form-control mr-sm-2" type="add" placeholder="Phone" aria-label="Add" name="staffphone">
+  </div>
+  <div>
+  <label for="staffcontract">Contract Type</label>
   <select class="form-control mr-sm-2"  placeholder="Contract Type"  name="staffcontract"> <option value="Temporary">Temporary</option>
   <option value="Permanent">Permanent</option> </select>
+  </div>
+  <div>
+  <label for="startdate">Start Date</label>
   <input class="form-control mr-sm-2" type="date" placeholder="Start Date" name="startdate">
+  </div>
+  <div>
+  <label for="termindate">Last Day</label>
   <input class="form-control mr-sm-2" type="date" placeholder="Termination Date" name="termindate">
+  </div>
+  <div>
+  <label for="staffqual">Qualifications</label>
   <input class="form-control mr-sm-2" type="add" placeholder="Qualifications" aria-label="Add" name="staffqual">
+  </div>
 
   <button class="btn btn-secondary my-2 my-sm-0 buttons" type="submit">Add Staff Member</button>
 </form>

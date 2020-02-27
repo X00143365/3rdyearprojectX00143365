@@ -3,23 +3,49 @@
 
 {% block content %}
 
-<h1>Edit Staff List</h1>
+<h1>Edit Staff Member</h1>
     {% if staff %}
         
 
 <form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
   
+  <div>
+  <label for="staffname">Staff Name</label>
   <input class="form-control mr-sm-2" type="add" placeholder="Staff Name" value="{{staff.staffname}}"aria-label="Add" name="staffname">
+  </div>
+  <div>
+  <label for="staffdob">Date of Birth</label>
   <input class="form-control mr-sm-2" type="text" placeholder="Date of Birth" value="{{staff.staffdob|date:"SHORT_DATE_FORMAT"}}" aria-label="Add" name="staffdob">
+  </div>
+  <div>
+  <label for="staffaddress">Address</label>
   <input class="form-control mr-sm-2" type="add" placeholder="Address" value="{{staff.staffaddress}}" aria-label="Add" name="staffaddress">
+  </div>
+  <div>
+  <label for="staffemail">Email</label>
   <input class="form-control mr-sm-2" type="add" placeholder="Email" value="{{staff.staffemail}}"aria-label="Add" name="staffemail">
+  </div>
+  <div>
+  <label for="staffphone">Phone</label>
   <input class="form-control mr-sm-2" type="add" placeholder="Phone" value="{{staff.staffphone}}" aria-label="Add" name="staffphone">
+  </div>
+  <div>
+  <label for="staffcontract">Contract Type</label>
   <select class="form-control mr-sm-2"  placeholder="Contract Type"  name="staffcontract"> <option value="Temporary">Temporary</option>
   <option value="Permanent">Permanent</option> </select>
+  </div>
+  <div>
+  <label for="startdate">Start Date</label>
   <input class="form-control mr-sm-2" type="text" placeholder="Start Date" value="{{staff.startdate|date:"SHORT_DATE_FORMAT"}}" aria-label="Add" name="startdate">
+  </div>
+  <div>
+  <label for="termindate">Last Day</label>
   <input class="form-control mr-sm-2" type="text" placeholder="Termination Date" value="{{staff.termindate|date:"SHORT_DATE_FORMAT"}}" aria-label="Add" name="termindate">
+  </div>
+  <div>
+  <label for="staffqual">Qualifications</label>
   <input class="form-control mr-sm-2" type="add" placeholder="Qualifications" value="{{staff.staffqual}}" aria-label="Add" name="staffqual">
-
+  </div>
   <button class="btn btn-secondary my-2 my-sm-0 buttons" type="submit">Save Staff Member</button>
 </form>
 
