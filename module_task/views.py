@@ -76,11 +76,7 @@ def task(request):
 ## AJAX function for getting avaible staff for date selected, only returns JSON, hit F12 to see ##
 @login_required
 def getselectdate(request):
-   
-
     select_date = request.POST.get('taskdate', None)
-
-
     avail_list = RotaList.objects.values_list('rotastaffid', flat=True).filter(rotadate=select_date)
     avail_staff = StaffList.objects.filter(id__in = avail_list).values()
     return JsonResponse({"avail_staff": list(avail_staff)})
@@ -99,7 +95,7 @@ def delete(request, task_id):
 @login_required
 def delallcomplete(request):
     try:
-        TaskList.objects.get(completed = True).delete()
+        TaskList.objects.filter(completed = True).delete()
         messages.success(request, ('Tasks have been successfully deleted!'))
         return redirect('task')  
     except:
@@ -129,12 +125,10 @@ def markincomplete(request, task_id):
 #function to edit tasks
 @login_required
 def edittask(request, task_id):
-
-    
+   
 
     if request.method == 'POST':
         task = TaskList.objects.get(pk=task_id)
-  
         form = TaskListForm(request.POST or None, instance=task)
         
 
